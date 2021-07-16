@@ -84,8 +84,10 @@ function createData(x,shape){
 class GraphShapeClassifier {
   constructor(graph,nn=null){
     this.graph = graph
+    this.stopTraining = false
     if (nn){
       this.sequential = nn;
+      this.sequential.compile({loss:"meanSquaredError",optimizer:"adam"})
     }else {
       this.sequential = tf.sequential();
       this.sequential.add(tf.layers.dense({units:20,batchInputShape:[null,this.graph.data.length*2],activation:"sigmoid"}))
@@ -107,6 +109,10 @@ class GraphShapeClassifier {
 
   async train(trainingSet,iter){
     for (let i=0; i < iter; i++){
+      if (this.stopTraining){
+        this.stopTraining = false;
+        break;
+      }
       const inputs = tf.tensor2d(trainingSet.inputs);
       const outputs = tf.tensor2d(trainingSet.outputs);
 
@@ -206,8 +212,14 @@ function loop(){
   mainLoop();
 }
 
-function trainAI(){
-  k.train(createDataSet(100,my_x.length),100)
+async function trainAI(){
+  let temp = document.createElement("input")
+  temp.type = "button"
+  temp.value = "Stop training"
+  temp.onclick = e => k.stopTraining = true;
+  document.body.appendChild(temp);
+  await k.train(createDataSet(100,my_x.length),100)
+  document.body.removeChild(temp);
 }
 
 async function exportAI(){
@@ -227,5 +239,3 @@ async function importAI(){
 //console.log("Pre-training: ",k.classify())
 //k.train(trainingSet,100).then(d=>console.log("Post-training: ",k.classify()))
 //console.log(tf.memory().numTensors)
-
-
