@@ -1,0 +1,13 @@
+.ai {
+  background-color: gray;
+  position: absolute;
+  top:200px;
+  left:900px ;
+}
+
+.graph {
+  background-color: gray;
+  position: absolute;
+  top:0px;
+  left:0px ;
+}
