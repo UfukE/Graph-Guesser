@@ -144,7 +144,7 @@ Graph.shapes().forEach( s => {
   let btn = document.createElement("input");
   btn.type = "button";
   btn.value = s;
-  btn.style.margin = "2.5px";
+  btn.class = "btn";
   btn.onclick = e => {
     g = new Graph(my_x.map((e,i)=>({x:e,y:createData(my_x,btn.value)[i]})),"Time","Money");
     k.graph = g;
