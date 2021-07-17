@@ -10,7 +10,7 @@ class Graph {
   }
 
   static shapes(){
-    return ["increase","decrease","random","oscillation","parabolic"]
+    return ["increase","decrease","random","resonance","parabolic"]
   }
 
   y_from(x){
@@ -72,7 +72,7 @@ function createData(x,shape){
     return x.map(e=> e + noise(5,0.5))
   } else if (shape=="decrease") {
     return x.map(e=> -e + noise(5,0.5))
-  } else if (shape=="oscillation"){
+  } else if (shape=="resonance"){
     return x.map((e,i)=> ((i%2 ? 1 : -1) + noise(0.2,0.5)) * e)
   } else if (shape=="parabolic"){
     return x.map(e=> e**2 + noise(5,0.5))
@@ -131,7 +131,7 @@ function createDataSet(n,n2){
   const res = {inputs:[],outputs:[]};
   const constantPart = Array(n2).fill().map((e,i)=>(i+1))
   for (let i=0; i < n; i++){
-    let cs = Graph.shapes()[Math.floor(Math.random() * 5)]
+    let cs = Graph.shapes()[Math.floor(Math.random() * Graph.shapes().length)]
     res.inputs.push(constantPart.concat(createData(constantPart,cs)))
     res.outputs.push(Graph.shapes().map(e=>(e==cs)+0))
   }
@@ -157,7 +157,7 @@ Graph.shapes().forEach( s => {
 
 let RUN = true
 const my_x = Array(100).fill().map((e,i)=>(i+1))
-const my_y = createData(my_x,"oscillation");
+const my_y = createData(my_x,"resonance");
 
 let g = new Graph(my_x.map((e,i)=>({x:e,y:my_y[i]})),"Time","Money")
 let k = new GraphShapeClassifier(g,null);
