@@ -9,5 +9,9 @@
   background-color: gray;
   position: absolute;
   top:0px;
-  left:0px ;
+  left:0px;
+}
+
+.btn {
+margin:2.5px;
 }
