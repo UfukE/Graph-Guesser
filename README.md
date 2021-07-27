@@ -1,4 +1,4 @@
-Demo at : https://GraphGuesser.ufuke.repl.co
+Demo at : https://Graph-Guesser.ufuke.repl.co
 
 ## Interface explanation:
 
